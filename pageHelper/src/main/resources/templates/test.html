@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="'Hello！, ' + ${name} + '!'" >3333</p>
+
+<div class="panel-body">
+    显示<span th:text="${records.size()}"></span>系统用户
+</div>
+
+<div th:if="${not #lists.isEmpty(records)}">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">系统用户</h3>
+        </div>
+        <table class="table table-striped" data-toggle="table" data-height="300"
+               data-url=""
+               data-pagination="true" data-search="true" data-show-refresh="true"
+               data-show-toggle="true" data-show-columns="true">
+            <tr>
+                <th>入职时间</th>
+                <th>姓名</th>
+                <th>账号</th>
+                <th>手机</th>
+                <th>离职时间</th>
+                <th>密码</th>
+            </tr>
+            <tr th:each="rec ,iterStat : ${records}" th:class="${iterStat.odd}? 'odd'">
+                <td th:text="${#dates.format(rec.entryDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${rec.fullname}"></td>
+                <td th:text="${rec.account}"></td>
+                <td th:text="${rec.mobile}"></td>
+                <td th:text="${#dates.format(rec.quitDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${rec.password}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
